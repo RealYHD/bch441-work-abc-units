@@ -2,7 +2,7 @@
 .Ds_store
 instructor/
 dev/
-myScripts/
+# myScripts/ # We don't want to ignore this so we can save our work to our own fork.
 
 # History files
 .Rhistory
