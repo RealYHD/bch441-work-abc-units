@@ -14,7 +14,8 @@
 # ==============================================================================
 # options(stringsAsFactors = FALSE)
 
-myEMail <- "<your-e-mail-address-here>"        # e.g. "u.franklin@utoronto.ca"
-myStudentNumber <- <your-student-number-here>  # e.g. 1003141592
+myEMail <- "yh.deng@mail.utoronto.ca"        # e.g. "u.franklin@utoronto.ca"
+myStudentNumber <- 1005845285  # e.g. 1003141592
+MYSPE <- "Cutaneotrichosporon oleaginosum" 
 
 # [END]

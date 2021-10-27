@@ -33,7 +33,7 @@
 
 
 #TOC> ==========================================================================
-#TOC> 
+#TOC>
 #TOC>   Section  Title                                                   Line
 #TOC> -----------------------------------------------------------------------
 #TOC>   1        A Relational Datamodel in R: review                       63
@@ -56,7 +56,7 @@
 #TOC>   3.3        Create an R script to create your own database         572
 #TOC>   3.3.1          Check and validate                                 600
 #TOC>   3.4        Task: submit for credit (part 2/2)                     645
-#TOC> 
+#TOC>
 #TOC> ==========================================================================
 
 
@@ -206,7 +206,7 @@ str(philDB)
 # go back, re-read, play with it, and ask for help. These are the foundations.
 
 
-# ===   1.1.1  completing the database                       
+# ===   1.1.1  completing the database
 
 
 # Next I'll add one more person, and create the other two tables:
@@ -292,6 +292,47 @@ for (ID in pID) {
 #    in <pre> ... </pre> tags. DO NOT POST A SCREENSHOT OF YOUR OUTPUT,
 #    BUT COPY THE EXACT, COMPLETE  OUTPUT, PASTE IT INTO YOUR SUBMISSION,
 #    AND FORMAT IT CORRECTLY.
+
+# == Submission - Code to add another philosopher to the datamodel:
+
+pID <- autoincrement(philDB$person)
+immanuelKant <- data.frame(id = pID,
+                           name = "Immanuel Kant",
+                           born = "1724",
+                           died = "1804",
+                           school = "Enlightenment Philosophy")
+philDB$person <- rbind(philDB$person, immanuelKant)
+
+bID = autoincrement(philDB$books)
+immanuelKantWork <- data.frame(id = bID,
+                               title = "Critique of Pure Reason",
+                               published = "1781")
+philDB$books <- rbind(philDB$books, immanuelKantWork)
+philDB$works <- rbind(philDB$works, data.frame(id = autoincrement(philDB$works), personID = pID, bookID = bID))
+
+bID = autoincrement(philDB$books)
+immanuelKantWork <- data.frame(id = bID,
+                               title = "Critique of Judgement",
+                               published = "1790")
+philDB$books <- rbind(philDB$books, immanuelKantWork)
+philDB$works <- rbind(philDB$works, data.frame(id = autoincrement(philDB$works), personID = pID, bookID = bID))
+
+# == Submission: Code to list the philosophical schools in alphabetical order as well as their respective books in alphabetical order.
+
+schools <- unique(philDB$person$school)
+schools <- sort(schools)
+
+for (s in schools) {
+  cat(sprintf("%s\n", s))
+  authors = which(philDB$person$school == s)
+  for (author in authors) {
+    works = which(philDB$works$personID == author)
+    for (work in works) {
+      bookId = which(philDB$books$id == philDB$works$bookID[work])
+      cat(sprintf("\t%s - (%s)\n", philDB$books$title[bookId], philDB$books$published[bookId]))
+    }
+  }
+}
 
 
 # =    2  Implementing the protein datamodel  ==================================
@@ -385,7 +426,7 @@ dbSanitizeSequence(x)
 
 # ==   2.3  Create a protein table for our data model  =========================
 
-# ===   2.3.1  Initialize the database                       
+# ===   2.3.1  Initialize the database
 
 
 # The function dbInit contains all the code to return a list of empty
@@ -397,7 +438,7 @@ myDB <- dbInit()
 str(myDB)
 
 
-# ===   2.3.2  Add data                                      
+# ===   2.3.2  Add data
 
 
 # fromJSON() returns a dataframe that we can readily process to add data
@@ -444,7 +485,7 @@ source("./scripts/ABC-createRefDB.R")
 str(myDB)
 
 
-# ===   2.4.1  Examples of navigating the database           
+# ===   2.4.1  Examples of navigating the database
 
 
 # You can look at the contents of the tables in the usual way we access
@@ -597,7 +638,7 @@ if (file.exists(sprintf("./myScripts/%staxonomy.json", biCode(MYSPE)))) {
 # "break" them with a code experiment. But always have a script with
 # which you can create what you need.
 
-# ===   3.3.1  Check and validate                            
+# ===   3.3.1  Check and validate
 
 
 # Is your protein named according to the pattern "MBP1_MYSPE"? It should be.
