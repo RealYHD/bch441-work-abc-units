@@ -293,30 +293,6 @@ for (ID in pID) {
 #    BUT COPY THE EXACT, COMPLETE  OUTPUT, PASTE IT INTO YOUR SUBMISSION,
 #    AND FORMAT IT CORRECTLY.
 
-# == Submission - Code to add another philosopher to the datamodel:
-
-pID <- autoincrement(philDB$person)
-immanuelKant <- data.frame(id = pID,
-                           name = "Immanuel Kant",
-                           born = "1724",
-                           died = "1804",
-                           school = "Enlightenment Philosophy")
-philDB$person <- rbind(philDB$person, immanuelKant)
-
-bID = autoincrement(philDB$books)
-immanuelKantWork <- data.frame(id = bID,
-                               title = "Critique of Pure Reason",
-                               published = "1781")
-philDB$books <- rbind(philDB$books, immanuelKantWork)
-philDB$works <- rbind(philDB$works, data.frame(id = autoincrement(philDB$works), personID = pID, bookID = bID))
-
-bID = autoincrement(philDB$books)
-immanuelKantWork <- data.frame(id = bID,
-                               title = "Critique of Judgement",
-                               published = "1790")
-philDB$books <- rbind(philDB$books, immanuelKantWork)
-philDB$works <- rbind(philDB$works, data.frame(id = autoincrement(philDB$works), personID = pID, bookID = bID))
-
 # == Submission: Code to list the philosophical schools in alphabetical order as well as their respective books in alphabetical order.
 
 schools <- unique(philDB$person$school)
